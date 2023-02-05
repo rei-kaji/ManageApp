@@ -7,9 +7,15 @@ import redisClient from "../service/redis.service.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  console.log("success get user: ", res);
   try {
-    const users = User.find();
+    const users = await User.find();
+    if (!users) {
+      return res.status(200).json({
+        status: "success",
+        message: "Users don't exist!",
+      });
+    }
+
     res.status(200).json({
       status: "success",
       users,
@@ -27,7 +33,7 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = User.findOne({ email });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).json({
@@ -50,7 +56,7 @@ router.post("/login", async (req, res) => {
     await redisClient.set(token.toString(), user._id.toString());
 
     res
-      .header("Authorization", token)
+      .header("authorization", token)
       .status(200)
       .json({
         status: "success",

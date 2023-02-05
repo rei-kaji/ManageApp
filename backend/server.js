@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.config.js";
 import userRoutes from "./routes/user.route.js";
 import postRoutes from "./routes/post.route.js";
+import castAgency from "./routes/castAgency.route.js";
+import getAllData from "./routes/getAllData.route.js";
 import redisClient from "./service/redis.service.js";
 
 dotenv.config();
@@ -31,6 +33,8 @@ app.get("/health", (req, res) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/castagencies", castAgency);
+app.use("/api/getAllData", getAllData);
 
 const startServer = async () => {
   try {
