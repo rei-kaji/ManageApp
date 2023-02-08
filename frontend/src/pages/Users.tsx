@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 
-const host = "localhost:3001";
+const host = "https://manageapp.onrender.com";
 type Props = {};
 
-const Users = (s) => {
+const Users = () => {
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllUsers] = useState(null);
 
   const fetchAllUsers = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${host}/api/users/`, {
+      const response = await fetch(`${host}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        // body: JSON.stringify({
-        //   email: "rei@gmail.com",
-        //   password: "123456",
-        // }),
+        body: JSON.stringify({
+          email: "rei@gmail.com",
+          password: "123456",
+        }),
       });
-      //   console.log("response", response);
+      console.log("response", response);
       if (response.ok) {
         const result = await response.json();
+        console.log("result", result);
         setAllUsers(result.data.reverse());
       }
     } catch (error) {
