@@ -6,22 +6,20 @@ import CastAgency from "./pages/CastAgency";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 // import SubHeader from "./components/subHeader";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
-      {/* <SubHeader /> */}
-      <main>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* <Route path="/post" element={<Posts />} /> */}
-          <Route path="/cast-agency" element={<CastAgency />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/agency" element={<CastAgency />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </BrowserRouter>
   );
 }

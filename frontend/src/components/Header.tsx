@@ -12,9 +12,9 @@ const Header = (props: Props) => {
           data-bs-theme="dark"
         >
           <div className="container-fluid">
-            <a className="navbar-brand" href="./index.html">
+            <Link to={"/"} className="navbar-brand">
               CastAgency
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -34,6 +34,11 @@ const Header = (props: Props) => {
                 <li className="nav-item">
                   <Link to={"/"} className="nav-link active">
                     Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/agency"} className="nav-link">
+                    Agency
                   </Link>
                 </li>
                 <li className="nav-item">
