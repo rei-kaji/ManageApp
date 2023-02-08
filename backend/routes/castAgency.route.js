@@ -24,7 +24,7 @@ router.get("/", auth, async (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Something went wrong!",
+        message: "Something went wrong on CastAgency.find!",
         err,
       });
     });
@@ -62,7 +62,7 @@ router.post("/add-castagency", auth, async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      message: "Something went wrong!",
+      message: "Something went wrong on CastAgency.findOne!",
       error,
     });
   }
@@ -104,7 +104,7 @@ router.post("/update-castagency", auth, async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      message: "Something went wrong!",
+      message: "Something went wrong on CastAgency.replaceOne!",
       error,
     });
   }

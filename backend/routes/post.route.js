@@ -18,7 +18,7 @@ router.get("/", auth, (req, res, next) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Something went wrong!",
+        message: "Something went wrong on Post.find!",
         err,
       });
     });
@@ -51,7 +51,7 @@ router.post("/", auth, (req, res, next) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Something went wrong!",
+        message: "Something went wrong on post.save()!",
         err,
       });
     });

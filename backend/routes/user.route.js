@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "Something went wrong!",
+      message: "Something went wrong on User.find!",
       error,
     });
   }
@@ -70,7 +70,7 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "Something went wrong!",
+      message: "Something went wrong on User.findOne!",
       error,
     });
   }
@@ -104,7 +104,7 @@ router.post("/register", async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      message: "Something went wrong!",
+      message: "Something went wrong on User.findOne!",
       error,
     });
   }
