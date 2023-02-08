@@ -9,8 +9,9 @@ const Links = {
   // CastAgency: `${host}/api/castagencies/`,
 
   Home: `/`,
-  Posts: `/post`,
-  CastAgency: `/cast-agency`,
+  Profile: `/profile`,
+  Register: `/register`,
+  Login: `/login`,
 };
 
 const LinkTo = (page) => {
@@ -22,11 +23,14 @@ const LinkTo = (page) => {
     case "Home":
       link = Links.Home;
       break;
+    case "Login":
+      link = Links.Login;
+      break;
     case "Posts":
       link = Links.Posts;
       break;
-    case "CastAgency":
-      link = Links.CastAgency;
+    case "Register":
+      link = Links.Register;
       break;
     default:
       link = null;
