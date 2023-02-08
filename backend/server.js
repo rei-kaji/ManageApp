@@ -3,11 +3,12 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import connectDB from "./config/db.config.js";
-import userRoutes from "./routes/user.route.js";
-import postRoutes from "./routes/post.route.js";
-import castAgency from "./routes/castAgency.route.js";
-import getAllData from "./routes/getAllData.route.js";
+
+import authRoutes from "./routes/auth.route.js";
 import redisClient from "./service/redis.service.js";
+import agencyRoutes from "./routes/castagency.route.js";
+import actorRoutes from "./routes/actor.route.js";
+import userRoutes from "./routes/user.route.js";
 
 dotenv.config();
 const app = express();
@@ -31,10 +32,16 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/castagencies", castAgency);
-app.use("/api/getAllData", getAllData);
+// app.use("/api/users", userRoutes);
+// app.use("/api/posts", postRoutes);
+// app.use("/api/castagencies", castAgency);
+// app.use("/api/getAllData", getAllData);
+
+app.use("/api/auth", authRoutes);
+app.use("/api/agency", agencyRoutes);
+app.use("/api/actors", actorRoutes);
+
+app.use("/", userRoutes);
 
 const startServer = async () => {
   try {

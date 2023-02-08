@@ -1,7 +1,7 @@
 import express from "express";
-import Post from "../modal/post.modal.js";
-import CastAgency from "../modal/castAgency.modal.js";
-import User from "../modal/user.modal.js";
+import Post from "../models/post.modal.js.js";
+import CastAgency from "../models/castAgency.modal.js.js";
+import User from "../models/user.modal.js.js";
 import auth from "../middleware/auth.middleware.js";
 
 const router = express.Router();

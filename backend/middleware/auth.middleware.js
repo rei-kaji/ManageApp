@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import jwtToken from "../service/jwt.service.js";
+import { verifyToken, isTokenExpired } from "../service/jwt.service.js";
 import redisClient from "../service/redis.service.js";
 
 dotenv.config();
@@ -20,9 +20,10 @@ const auth = async (req, res, next) => {
     });
   } else {
     try {
-      const decoded = jwtToken.verifyToken(token);
+      const decoded = verifyToken(token);
 
-      if (decoded.exp < Math.floor(Date.now() / 1000)) {
+      if (isTokenExpired(token)) {
+        await redisClient.del(token);
         return res.status(401).json({
           status: "fail",
           message: "Unauthorized!",
@@ -32,7 +33,12 @@ const auth = async (req, res, next) => {
       req.user = decoded.id;
 
       next();
-    } catch (err) {}
+    } catch (err) {
+      return res.status(500).json({
+        status: "fail",
+        message: "Unauthorized!",
+      });
+    }
   }
 };
 

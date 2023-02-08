@@ -3,19 +3,18 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-let jwtToken = {};
-
-const createToken = (payload) => {
+export const createToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
 
-const verifyToken = (token) => {
+export const verifyToken = (token) => {
   return jwt.verify(token, process.env.JWT_SECRET);
 };
 
-jwtToken.createToken = createToken;
-jwtToken.verifyToken = verifyToken;
+export const isTokenExpired = (token) => {
+  const decoded = jwt.decode(token);
 
-export default jwtToken;
+  return decoded.exp < Date.now() / 1000;
+};
