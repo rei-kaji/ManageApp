@@ -6,7 +6,7 @@ export const getMe = async (req, res, next) => {
   const id = req.user;
 
   try {
-    let user = await User.findById(id).populate("agency");
+    let user = await User.findById(id).populate("agencies");
 
     res.status(200).json({
       status: "success",

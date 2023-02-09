@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 type Props = {};
 
-const Header = (props: Props) => {
+const Header = ({ fullName, role }) => {
   return (
     <>
       <header>
@@ -12,7 +12,7 @@ const Header = (props: Props) => {
           data-bs-theme="dark"
         >
           <div className="container-fluid">
-            <Link to={"/"} className="navbar-brand">
+            <Link to={"/"} state={{ state: "Hello" }} className="navbar-brand">
               CastAgency
             </Link>
             <button
@@ -36,11 +36,14 @@ const Header = (props: Props) => {
                     Home
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link to={"/agency"} className="nav-link">
-                    Agency
-                  </Link>
-                </li>
+                {role == "AGENCY" && (
+                  <li className="nav-item">
+                    <Link to={"/agency"} className="nav-link">
+                      Agency
+                    </Link>
+                  </li>
+                )}
+
                 <li className="nav-item">
                   <Link to={"/profile"} className="nav-link">
                     Profile
@@ -51,14 +54,14 @@ const Header = (props: Props) => {
                     Register
                   </Link>
                 </li>
-                <li className="nav-item" id="agency-link">
+                {/* <li className="nav-item" id="agency-link">
                   <Link to={"/login"} className="nav-link">
                     Login
                   </Link>
-                </li>
+                </li> */}
               </ul>
               <div className="user-info nav-item">
-                <span id="username"></span>
+                <span id="username">{fullName}</span>
                 <button id="logout" className="btn btn-outline-light mx-2">
                   Logout
                 </button>

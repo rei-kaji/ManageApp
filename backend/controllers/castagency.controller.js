@@ -1,4 +1,5 @@
 import CastAgency from "../models/castagency.model.js";
+import User from "../models/user.model.js";
 
 export const createAgency = async (req, res) => {
   const { name, location, phoneNumber, website, email, bio, logo, since } =
@@ -33,11 +34,18 @@ export const createAgency = async (req, res) => {
       bio,
       logo,
       since,
+      user: req.user,
     };
     const newAgency = await CastAgency.create(cast);
+    const user = await User.findByIdAndUpdate(
+      req.user,
+      { $push: { agencies: newAgency._id } },
+      { new: true }
+    );
     res.status(201).json({
       status: "success",
       data: newAgency,
+      user,
     });
   } catch (err) {
     res.status(500).json({
