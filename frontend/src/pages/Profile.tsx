@@ -37,14 +37,14 @@ const radios = [
 //   }}
 // />
 
-const agencyInfoGroup = [
-  {
-    label: "Agency Name",
-    type: "text",
-    placeholder: "ex. Aurora",
-    changeInfo: "name",
-  },
-];
+// const agencyInfoGroup = [
+//   {
+//     label: "Agency Name",
+//     type: "text",
+//     placeholder: "ex. Aurora",
+//     changeInfo: "name",
+//   },
+// ];
 
 const Profile = (props: Props) => {
   const [userFullName, setUserFullName] = useState("");
@@ -63,37 +63,30 @@ const Profile = (props: Props) => {
     logo: "",
     since: 20230101,
   });
-
-  // const handleAgencyInfo = (info, event) => {
-  //   switch (info) {
-  //     case "name":
-  //       (event) => {
-  //         setAgencyInfo((prevState) => ({
-  //           ...prevState,
-  //           name: event.target.value,
-  //         }));
-  //       };
-  //       break;
-  //     case "location":
-  //       setCreateAgency(false);
-  //       break;
-  //     case "phoneNumber":
-  //       setAddActor(false);
-  //       break;
-  //     case "website":
-  //       setAddActor(false);
-  //       break;
-  //     case "email":
-  //       setAddActor(false);
-  //       break;
-  //     case "bio":
-  //       setAddActor(false);
-  //       break;
-  //     case "since":
-  //       setAddActor(false);
-  //       break;
-  //   }
-  // };
+  const [actorInfo, setActorInfo] = useState({
+    fullName: "",
+    age: 18,
+    gender: "MALE",
+    avatar: "",
+    physical_information: {
+      height: 170,
+      weight: 60,
+      eyes: "",
+    },
+    social: {
+      facebook: "",
+      linkedIn: "",
+    },
+  });
+  const [actorPhysicalInfo, setActorPhysicalInfo] = useState({
+    height: 170,
+    weight: 60,
+    eyes: "",
+  });
+  const [actorSocialInfo, setActorSocialInfo] = useState({
+    facebook: "",
+    linkedIn: "",
+  });
 
   const handleClose = (buttonName) => {
     switch (buttonName) {
@@ -173,6 +166,40 @@ const Profile = (props: Props) => {
       });
   };
 
+  const handleCreateActor = (e) => {
+    e.preventDefault();
+    // if (!actorPhysicalInfo && !actorSocialInfo) {
+    //   alert("Please fill all inputs");
+    //   return;
+    // }
+
+    actorInfo.physical_information = actorPhysicalInfo;
+    actorInfo.social = actorSocialInfo;
+
+    console.log("actorInfo", actorInfo);
+
+    if (
+      actorInfo.fullName === "" ||
+      actorInfo.age === null ||
+      actorInfo.gender === "" ||
+      actorInfo.avatar === "" ||
+      actorInfo.physical_information === null ||
+      actorInfo.social === null
+    ) {
+      alert("Please fill all inputs");
+      return;
+    }
+
+    axios
+      .post("http://localhost:3001/api/actors/", actorInfo)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getMe({ setUserFullName, setUserRole });
   }, []);
@@ -199,7 +226,7 @@ const Profile = (props: Props) => {
               </p>
             </Row>
             <Row xs="auto">
-              <Col>
+              <Col xs={12} md={2} style={{ marginBottom: "1.5rem" }}>
                 <Button
                   variant="outline-dark"
                   onClick={() => {
@@ -209,7 +236,7 @@ const Profile = (props: Props) => {
                   Update profile
                 </Button>
               </Col>
-              <Col>
+              <Col xs={12} md={2} style={{ marginBottom: "1.5rem" }}>
                 <Button
                   variant="outline-dark"
                   onClick={() => {
@@ -219,7 +246,7 @@ const Profile = (props: Props) => {
                   Create Agency
                 </Button>
               </Col>
-              <Col>
+              <Col xs={12} md={2} style={{ marginBottom: "1.5rem" }}>
                 <Button
                   variant="outline-dark"
                   onClick={() => {
@@ -476,7 +503,129 @@ const Profile = (props: Props) => {
           <Modal.Header closeButton>
             <Modal.Title>Add Actor</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Full Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="full name"
+                  onChange={(e) => {
+                    setActorInfo((prevState) => ({
+                      ...prevState,
+                      fullName: e.target.value,
+                    }));
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>age</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="phone number"
+                  onChange={(e) => {
+                    setActorInfo((prevState) => ({
+                      ...prevState,
+                      age: parseInt(e.target.value),
+                    }));
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Gender</Form.Label>
+                <Form.Select
+                  onChange={(e) => {
+                    setActorInfo((prevState) => ({
+                      ...prevState,
+                      gender: e.target.value,
+                    }));
+                  }}
+                >
+                  <option value="MALE">MALE</option>
+                  <option value="FEMALE">FEMALE</option>
+                  <option value="OTHER">OTHER</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Avatar</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="ex. https://..."
+                  onChange={(e) => {
+                    setActorInfo((prevState) => ({
+                      ...prevState,
+                      avatar: e.target.value,
+                    }));
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Height</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="170"
+                  onChange={(e) => {
+                    setActorPhysicalInfo((prevState) => ({
+                      ...prevState,
+                      height: parseInt(e.target.value),
+                    }));
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Weight</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="60"
+                  onChange={(e) => {
+                    setActorPhysicalInfo((prevState) => ({
+                      ...prevState,
+                      weight: parseInt(e.target.value),
+                    }));
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Eyes Color</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="blue"
+                  onChange={(e) => {
+                    setActorPhysicalInfo((prevState) => ({
+                      ...prevState,
+                      eyes: e.target.value,
+                    }));
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Facebook</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder=""
+                  onChange={(e) => {
+                    setActorSocialInfo((prevState) => ({
+                      ...prevState,
+                      facebook: e.target.value,
+                    }));
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>LinkedIn</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder=""
+                  onChange={(e) => {
+                    setActorSocialInfo((prevState) => ({
+                      ...prevState,
+                      linkedIn: e.target.value,
+                    }));
+                  }}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
           <Modal.Footer>
             <Button
               variant="secondary"
@@ -488,11 +637,12 @@ const Profile = (props: Props) => {
             </Button>
             <Button
               variant="primary"
-              onClick={() => {
+              onClick={(e) => {
+                handleCreateActor(e);
                 handleClose("actor");
               }}
             >
-              Save Changes
+              Create
             </Button>
           </Modal.Footer>
         </Modal>

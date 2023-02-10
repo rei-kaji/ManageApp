@@ -45,7 +45,7 @@ const Index = (props: Props) => {
     <>
       <Header fullName={userFullName} role={userRole} />
       <main>
-        <Container style={{ marginTop: "5rem" }}>
+        <Container style={{ marginTop: "5rem", paddingBottom: "2.5rem" }}>
           <h1 id="actor-title" className="mb-5">
             List of Actors
           </h1>
