@@ -25,26 +25,59 @@ const radios = [
   { name: "ACTOR", value: "ACTOR" },
 ];
 
-//  <Form.Label>Agency Name</Form.Label>
-// <Form.Control
-//   type="text"
-//   placeholder="ex. Aurora"
-//   onChange={(e) => {
-//     setAgencyInfo((prevState) => ({
-//       ...prevState,
-//       name: e.target.value,
-//     }));
-//   }}
-// />
-
-// const agencyInfoGroup = [
-//   {
-//     label: "Agency Name",
-//     type: "text",
-//     placeholder: "ex. Aurora",
-//     changeInfo: "name",
-//   },
-// ];
+const agencyInfoGroup = [
+  {
+    label: "Agency Name",
+    type: "text",
+    placeholder: "ex. Aurora",
+    changeInfo: "name",
+  },
+  {
+    label: "Location",
+    type: "text",
+    placeholder: "ex. Vancouver, BC",
+    changeInfo: "location",
+  },
+  {
+    label: "Phone Number",
+    type: "text",
+    placeholder: "xxx-xxx-xxxx",
+    changeInfo: "phoneNumber",
+  },
+  {
+    label: "Website",
+    type: "text",
+    placeholder: "ex. https://..",
+    changeInfo: "website",
+  },
+  {
+    label: "Email",
+    type: "email",
+    placeholder: "ex. asd@example.com",
+    changeInfo: "email",
+  },
+  {
+    label: "Bio",
+    type: "text",
+    placeholder: "ex. We are working with ...",
+    changeInfo: "bio",
+    required: true,
+  },
+  {
+    label: "Logo",
+    type: "text",
+    placeholder: "ex. https://..",
+    changeInfo: "logo",
+    required: true,
+  },
+  {
+    label: "Since",
+    type: "number",
+    placeholder: "ex. 2000",
+    changeInfo: "since",
+    required: true,
+  },
+];
 
 const Profile = (props: Props) => {
   const [userFullName, setUserFullName] = useState("");
@@ -168,10 +201,6 @@ const Profile = (props: Props) => {
 
   const handleCreateActor = (e) => {
     e.preventDefault();
-    // if (!actorPhysicalInfo && !actorSocialInfo) {
-    //   alert("Please fill all inputs");
-    //   return;
-    // }
 
     actorInfo.physical_information = actorPhysicalInfo;
     actorInfo.social = actorSocialInfo;
@@ -336,9 +365,7 @@ const Profile = (props: Props) => {
 
         <Modal
           show={showCreateAgency}
-          onHide={() => {
-            handleClose("agency");
-          }}
+          onHide={() => handleClose("agency")}
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
@@ -347,147 +374,38 @@ const Profile = (props: Props) => {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Agency Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="ex. Aurora"
-                  onChange={(e) => {
-                    setAgencyInfo((prevState) => ({
-                      ...prevState,
-                      name: e.target.value,
-                    }));
-                  }}
-                />
-
-                {/* {agencyInfoGroup.map(
-                  ({ label, type, placeholder, changeInfo }) => (
-                    <>
-                      <Form.Label>{label}</Form.Label>
-                      <Form.Control
-                        type={type}
-                        placeholder={placeholder}
-                        onChange={(e) => {
-                          handleAgencyInfo(changeInfo, e);
-                        }}
-                      />
-                    </>
-                  )
-                )} */}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Location</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="ex. Vancouver, BC"
-                  onChange={(e) => {
-                    setAgencyInfo((prevState) => ({
-                      ...prevState,
-                      location: e.target.value,
-                    }));
-                  }}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Phone Number</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="xxx-xxx-xxxx"
-                  onChange={(e) => {
-                    setAgencyInfo((prevState) => ({
-                      ...prevState,
-                      phoneNumber: e.target.value,
-                    }));
-                  }}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Website</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="ex. https://.."
-                  onChange={(e) => {
-                    setAgencyInfo((prevState) => ({
-                      ...prevState,
-                      website: e.target.value,
-                    }));
-                  }}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="ex. asd@example.com"
-                  onChange={(e) => {
-                    setAgencyInfo((prevState) => ({
-                      ...prevState,
-                      email: e.target.value,
-                    }));
-                  }}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Bio</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="ex. We are working with ..."
-                  onChange={(e) => {
-                    setAgencyInfo((prevState) => ({
-                      ...prevState,
-                      bio: e.target.value,
-                    }));
-                  }}
-                  required
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Logo</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="ex. https://.."
-                  onChange={(e) => {
-                    setAgencyInfo((prevState) => ({
-                      ...prevState,
-                      logo: e.target.value,
-                    }));
-                  }}
-                  required
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Since</Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="ex. 2000"
-                  onChange={(e) => {
-                    setAgencyInfo((prevState) => ({
-                      ...prevState,
-                      since: parseInt(e.target.value),
-                    }));
-                  }}
-                  required
-                />
-              </Form.Group>
+              {agencyInfoGroup.map(
+                ({ label, type, placeholder, changeInfo, required }) => (
+                  <Form.Group className="mb-3" controlId="formBasicText">
+                    <Form.Label>{label}</Form.Label>
+                    <Form.Control
+                      type={type}
+                      placeholder={placeholder}
+                      onChange={(e) =>
+                        setAgencyInfo((prevState) => ({
+                          ...prevState,
+                          [changeInfo]: e.target.value,
+                        }))
+                      }
+                      required={required}
+                    />
+                  </Form.Group>
+                )
+              )}
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                handleClose("agency");
-              }}
-            >
+            <Button variant="secondary" onClick={() => handleClose("agency")}>
               Close
             </Button>
             <Button
               variant="primary"
               onClick={(e) => {
                 handleCreateAgency(e);
-                handleClose("profile");
+                handleClose("agency");
               }}
             >
-              Save Changes
+              Create
             </Button>
           </Modal.Footer>
         </Modal>
