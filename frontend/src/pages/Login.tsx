@@ -2,7 +2,7 @@
 import axios from "axios";
 import axiosOrigin from "axios";
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { Link, redirect } from "react-router-dom";
 
 type Props = {};
@@ -17,15 +17,15 @@ const Login = (props: Props) => {
       email: email,
       password: password,
     };
-    console.log("data", data);
-    alert(`date: ${data.email}`);
+    // console.log("data", data);
+    // alert(`date: ${data.email}`);
 
     axios
       .post("http://localhost:3001/api/auth/login", data)
       .then((data) => {
         const { token } = data.data;
-        console.log("token", token);
-        alert(`token: ${token}`);
+        // console.log("token", token);
+        // alert(`token: ${token}`);
         // we need to save the token to localstorage
         localStorage.setItem("token", token);
         // we will redirect to the home page
@@ -38,7 +38,7 @@ const Login = (props: Props) => {
 
   return (
     <>
-      <div className="container mt-5">
+      <Container style={{ paddingTop: "5rem" }}>
         <h1>Login</h1>
 
         <Form
@@ -80,7 +80,7 @@ const Login = (props: Props) => {
             Submit
           </Button>
         </Form>
-      </div>
+      </Container>
     </>
   );
 };
