@@ -46,9 +46,9 @@ app.use("/", userRoutes);
 const startServer = async () => {
   try {
     connectDB(process.env.MONGO_HOST);
-    app.listen(process.env.PORT, () => {
-      console.log("Server is running on port " + process.env.PORT + "...");
-    });
+    // app.listen(process.env.PORT, () => {
+    //   console.log("Server is running on port " + process.env.PORT + "...");
+    // });
   } catch (error) {
     console.log("Connecting server is failed. Error: ", error);
   }
