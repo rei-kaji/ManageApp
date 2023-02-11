@@ -6,7 +6,7 @@ import connectDB from "./config/db.config.js";
 
 import authRoutes from "./routes/auth.route.js";
 // import redisClient from "./service/redis.service.js";
-import agencyRoutes from "./routes/castagency.route.js";
+import agencyRoutes from "./routes/castAgency.route.js";
 import actorRoutes from "./routes/actor.route.js";
 import userRoutes from "./routes/user.route.js";
 
