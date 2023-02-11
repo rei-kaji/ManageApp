@@ -43,23 +43,45 @@ const Register = (props: Props) => {
       role: userRole,
     };
     axios
-      .post("http://localhost:3001/auth/register", data)
+      .post("https://manageapp.onrender.com/auth/register", data)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-    redirect("/login");
+    redirect("/");
   };
   return (
     <>
-      <Header fullName={userFullName} role={userRole} />
+      {/* <Header fullName={userFullName} role={userRole} /> */}
+      <div
+        style={{
+          // marginTop: "2rem",
+          border: "black 1rem solid",
+          background: "black",
+        }}
+      >
+        <span
+          style={{
+            background: "black",
+            color: "white",
+            // fontWeight: "700",
+            fontSize: "1.25rem",
+          }}
+        >
+          Cast Agency
+        </span>
+      </div>
       <Container
         style={{
           width: "50rem",
-          paddingTop: "2.5rem",
-          paddingBottom: "2.5rem",
+          // paddingTop: "2.5rem",
+          // paddingBottom: "2.5rem",
+          marginTop: "2rem",
+          padding: "4rem",
+          backgroundColor: "#F0EEED",
+          borderRadius: "1rem",
         }}
       >
         <Row>

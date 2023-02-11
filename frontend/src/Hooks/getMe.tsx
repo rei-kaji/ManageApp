@@ -8,7 +8,7 @@ type Props = {};
 
 const getMe = async ({ setUserFullName, setUserRole }) => {
   await axios
-    .get("http://localhost:3001/me")
+    .get("https://manageapp.onrender.com/me")
     .then((data) => {
       const { fullName, role } = data.data.user;
       // console.log("fullName", fullName);

@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.config.js";
 
 import authRoutes from "./routes/auth.route.js";
-import redisClient from "./service/redis.service.js";
+// import redisClient from "./service/redis.service.js";
 import agencyRoutes from "./routes/castagency.route.js";
 import actorRoutes from "./routes/actor.route.js";
 import userRoutes from "./routes/user.route.js";
@@ -13,13 +13,13 @@ import userRoutes from "./routes/user.route.js";
 dotenv.config();
 const app = express();
 
-(async () => {
-  try {
-    await redisClient.connect();
-  } catch (err) {
-    console.log(err);
-  }
-})();
+// (async () => {
+//   try {
+//     await redisClient.connect();
+//   } catch (err) {
+//     console.log(err);
+//   }
+// })();
 
 app.use(
   cors({

@@ -25,6 +25,9 @@ const radios = [
   { name: "ACTOR", value: "ACTOR" },
 ];
 
+const avatarSample =
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80";
+
 const agencyInfoGroup = [
   {
     label: "Agency Name",
@@ -85,30 +88,30 @@ const Profile = (props: Props) => {
   const [showUpdateProfile, setUpdateProfile] = useState(false);
   const [showCreateAgency, setCreateAgency] = useState(false);
   const [showAddActor, setAddActor] = useState(false);
-  const [userProfileRadioValue, setUserProfileRadioValue] = useState(userRole);
+  const [userProfileRadioValue, setUserProfileRadioValue] = useState("");
   const [agencyInfo, setAgencyInfo] = useState({
     name: "",
     location: "",
     phoneNumber: "",
-    website: "",
+    website: "https://facebook",
     email: "",
     bio: "",
-    logo: "",
+    logo: avatarSample,
     since: 20230101,
   });
   const [actorInfo, setActorInfo] = useState({
     fullName: "",
     age: 18,
     gender: "MALE",
-    avatar: "",
+    avatar: avatarSample,
     physical_information: {
       height: 170,
       weight: 60,
       eyes: "",
     },
     social: {
-      facebook: "",
-      linkedIn: "",
+      facebook: "https://facebook",
+      linkedIn: "https://linkedin",
     },
   });
   const [actorPhysicalInfo, setActorPhysicalInfo] = useState({
@@ -153,16 +156,20 @@ const Profile = (props: Props) => {
 
   const handleUpdateUserProfile = (e) => {
     e.preventDefault();
-    if (userProfileRadioValue) {
-      setUserRole(userProfileRadioValue);
+    if (!userProfileRadioValue) {
+      alert("Please select role!");
     }
+    setUserRole(userProfileRadioValue);
+    // setUserProfileRadioValue("");
+    // console.log("userProfileRadioValue", userProfileRadioValue);
+    // console.log("userRole", userRole);
     let data = {
       fullName: userFullName,
-      role: userRole,
+      role: userProfileRadioValue,
     };
 
     axios
-      .put("http://localhost:3001/update", data)
+      .put("https://manageapp.onrender.com/update", data)
       .then((res) => {
         console.log(res);
       })
@@ -190,7 +197,7 @@ const Profile = (props: Props) => {
     }
 
     axios
-      .post("http://localhost:3001/api/agency/", agencyInfo)
+      .post("https://manageapp.onrender.com/api/agency/", agencyInfo)
       .then((res) => {
         console.log(res);
       })
@@ -205,7 +212,7 @@ const Profile = (props: Props) => {
     actorInfo.physical_information = actorPhysicalInfo;
     actorInfo.social = actorSocialInfo;
 
-    console.log("actorInfo", actorInfo);
+    // console.log("actorInfo", actorInfo);
 
     if (
       actorInfo.fullName === "" ||
@@ -220,7 +227,7 @@ const Profile = (props: Props) => {
     }
 
     axios
-      .post("http://localhost:3001/api/actors/", actorInfo)
+      .post("https://manageapp.onrender.com/api/actors/", actorInfo)
       .then((res) => {
         console.log(res);
       })
@@ -237,7 +244,14 @@ const Profile = (props: Props) => {
     <>
       <Header fullName={userFullName} role={userRole} />
       <main>
-        <Container style={{ paddingTop: "4rem" }}>
+        <Container
+          style={{
+            marginTop: "2rem",
+            padding: "4rem",
+            backgroundColor: "#F0EEED",
+            borderRadius: "1rem",
+          }}
+        >
           <Container fluid>
             <Row>
               <h1 style={{ fontSize: "3rem", fontWeight: "700" }}>
@@ -376,7 +390,11 @@ const Profile = (props: Props) => {
             <Form>
               {agencyInfoGroup.map(
                 ({ label, type, placeholder, changeInfo, required }) => (
-                  <Form.Group className="mb-3" controlId="formBasicText">
+                  <Form.Group
+                    className="mb-3"
+                    controlId="formBasicText"
+                    key={label}
+                  >
                     <Form.Label>{label}</Form.Label>
                     <Form.Control
                       type={type}
@@ -440,7 +458,7 @@ const Profile = (props: Props) => {
                 <Form.Label>age</Form.Label>
                 <Form.Control
                   type="number"
-                  placeholder="phone number"
+                  placeholder="ex. 18"
                   onChange={(e) => {
                     setActorInfo((prevState) => ({
                       ...prevState,
@@ -470,9 +488,13 @@ const Profile = (props: Props) => {
                   type="text"
                   placeholder="ex. https://..."
                   onChange={(e) => {
+                    let avatarUrl = avatarSample;
+                    if (e.target.value) {
+                      avatarUrl = e.target.value;
+                    }
                     setActorInfo((prevState) => ({
                       ...prevState,
-                      avatar: e.target.value,
+                      avatar: avatarUrl,
                     }));
                   }}
                 />
@@ -522,9 +544,13 @@ const Profile = (props: Props) => {
                   type="text"
                   placeholder=""
                   onChange={(e) => {
+                    let facebookUrl = sampleUrl;
+                    if (e.target.value) {
+                      facebookUrl = e.target.value;
+                    }
                     setActorSocialInfo((prevState) => ({
                       ...prevState,
-                      facebook: e.target.value,
+                      facebook: facebookUrl,
                     }));
                   }}
                 />
@@ -535,9 +561,13 @@ const Profile = (props: Props) => {
                   type="text"
                   placeholder=""
                   onChange={(e) => {
+                    let linkedInUrl = sampleUrl;
+                    if (e.target.value) {
+                      linkedInUrl = e.target.value;
+                    }
                     setActorSocialInfo((prevState) => ({
                       ...prevState,
-                      linkedIn: e.target.value,
+                      linkedIn: linkedInUrl,
                     }));
                   }}
                 />

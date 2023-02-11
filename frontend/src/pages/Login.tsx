@@ -7,6 +7,8 @@ import { Link, redirect } from "react-router-dom";
 
 type Props = {};
 
+// console.log("Open Login");
+
 const Login = (props: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,7 @@ const Login = (props: Props) => {
     // alert(`date: ${data.email}`);
 
     axios
-      .post("http://localhost:3001/api/auth/login", data)
+      .post("https://manageapp.onrender.com/api/auth/login", data)
       .then((data) => {
         const { token } = data.data;
         // console.log("token", token);
@@ -29,7 +31,7 @@ const Login = (props: Props) => {
         // we need to save the token to localstorage
         localStorage.setItem("token", token);
         // we will redirect to the home page
-        window.location.href = "/";
+        window.location.href = "/home";
       })
       .catch((err) => {
         console.log(err);
@@ -38,12 +40,38 @@ const Login = (props: Props) => {
 
   return (
     <>
-      <Container style={{ paddingTop: "5rem" }}>
+      <div
+        style={{
+          // marginTop: "2rem",
+          border: "black 1rem solid",
+          background: "black",
+        }}
+      >
+        <span
+          style={{
+            background: "black",
+            color: "white",
+            // fontWeight: "700",
+            fontSize: "1.25rem",
+          }}
+        >
+          Cast Agency
+        </span>
+      </div>
+      <Container
+        style={{
+          // paddingTop: "5rem",
+          marginTop: "2rem",
+          padding: "4rem",
+          backgroundColor: "#F0EEED",
+          borderRadius: "1rem",
+        }}
+      >
         <h1>Login</h1>
 
         <Form
           onSubmit={() => {
-            redirect("/");
+            redirect("/home");
           }}
         >
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -79,6 +107,12 @@ const Login = (props: Props) => {
             Submit
           </Button>
         </Form>
+        <p>
+          Don't you have account?{" "}
+          <span>
+            <Link to={"/register"}>Register</Link>
+          </span>
+        </p>
       </Container>
     </>
   );

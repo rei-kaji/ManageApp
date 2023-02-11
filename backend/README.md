@@ -14,14 +14,14 @@ REDIS_PORT = 6379
 ## Getting Started
 
 ```cli
-brew install redis
+<!-- brew install redis -->
 npm install
 ```
 
 ## Running the server
 
 ```cli
-redis-server
+<!-- redis-server -->
 npm run dev
 ```
 

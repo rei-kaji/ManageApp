@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { Card, Col, Container, ListGroup, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import getMe from "../Hooks/getMe.js";
 import getActors from "../Hooks/getActors";
 
@@ -23,14 +23,15 @@ interface Actor {
 type Props = {};
 let token = localStorage.getItem("token");
 
-if (token) {
-  axios.defaults.headers.common["Authorization"] = `${token}`;
-} else {
-  window.location.href = "/login";
-}
-
 const Index = (props: Props) => {
   // const [loading, setLoading] = useState(false);
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `${token}`;
+  } else {
+    // console.log("Home");
+    alert("You have to login first!");
+    window.location.href = "/";
+  }
   const [userFullName, setUserFullName] = useState("");
   const [userRole, setUserRole] = useState("");
   const [actorsData, setActorsData] = useState<Actor[]>([]);
@@ -44,11 +45,24 @@ const Index = (props: Props) => {
     <>
       <Header fullName={userFullName} role={userRole} />
       <main>
-        <Container style={{ marginTop: "5rem", paddingBottom: "2.5rem" }}>
-          <h1 id="actor-title" className="mb-5 text-center">
+        <Container style={{ marginTop: "5rem" }}>
+          <h1
+            id="actor-title"
+            className="mb-5 text-center"
+            style={{ color: "white" }}
+          >
             List of Actors
           </h1>
-          <Row id="list-actor">
+          <Row
+            id="list-actor"
+            style={{
+              // padding: "2.5rem",
+              padding: "4rem",
+              backgroundColor: "#F0EEED",
+              borderRadius: "1rem",
+              // marginBottom: "5rem",
+            }}
+          >
             {actorsData.map((actor) => {
               const { height, weight, eyes } = actor.physical_information;
               const { facebook, linkedIn } = actor.social;
@@ -74,10 +88,7 @@ const Index = (props: Props) => {
                       <Card.Title className="card-title text-center">
                         {actor.fullName}
                       </Card.Title>
-                      <Card.Text className="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </Card.Text>
+                      <Card.Text className="card-text"></Card.Text>
                     </Card.Body>
                     <ListGroup variant="flush">
                       <ListGroup.Item>
