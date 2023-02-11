@@ -1,4 +1,4 @@
-import CastAgency from "../models/castagency.model.js";
+import CastAgency from "../models/castAgency.model.js";
 import User from "../models/user.model.js";
 
 export const createAgency = async (req, res) => {

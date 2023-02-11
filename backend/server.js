@@ -37,11 +37,6 @@ app.get("/health", (req, res) => {
   });
 });
 
-// app.use("/api/users", userRoutes);
-// app.use("/api/posts", postRoutes);
-// app.use("/api/castagencies", castAgency);
-// app.use("/api/getAllData", getAllData);
-
 app.use("/api/auth", authRoutes);
 app.use("/api/agency", agencyRoutes);
 app.use("/api/actors", actorRoutes);

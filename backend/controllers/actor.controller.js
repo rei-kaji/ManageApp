@@ -1,5 +1,5 @@
+import CastAgency from "../models/castAgency.model.js";
 import Actor from "../models/actor.model.js";
-import CastAgency from "../models/castagency.model.js";
 
 export const getAllActors = async (req, res) => {
   try {
